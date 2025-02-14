@@ -1,0 +1,6 @@
+android/
+ios/
+node_modules/
+functions/
+.env
+.env.example
