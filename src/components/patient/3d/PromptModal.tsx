@@ -13,6 +13,7 @@ import type { IAssessmentObject, ICustomModalType, IGenerativeHumanModel } from 
 import CustomModal from "../../modal/CustomModal";
 import LottieView from "lottie-react-native";
 import { NavigationProp, ParamListBase, useNavigation } from "@react-navigation/native";
+import { getApp } from "@react-native-firebase/app";
 
 export default function PromptModal({ visible }: { visible: boolean }) {
   const { width } = useWindowDimensions();
@@ -27,8 +28,8 @@ export default function PromptModal({ visible }: { visible: boolean }) {
     error: false,
   });
   const onPressSubmitAssessmentInput = async () => {
-    dispatch(showQuestionShow(false));
     setModal((prev) => ({ ...prev, loading: true }));
+    dispatch(showQuestionShow(false));
     const assessmentObject: IAssessmentObject = selectAssessmentInput.reduce(
       (acc: IAssessmentObject, { focus, value }) => {
         acc[focus] = value;
@@ -36,13 +37,36 @@ export default function PromptModal({ visible }: { visible: boolean }) {
       },
       {}
     );
-    const { payload } = await dispatch(
-      generativeHumanModel({ ...assessmentObject, location: selectHumanModelUri } as IGenerativeHumanModel)
-    );
-    setModal((prev) => ({ ...prev, loading: false }));
-    if (payload) {
-      return nav.navigate("PatientModelResponse", { data: payload.data });
-    }
+    getApp()
+      .storage()
+      .ref("humanModel")
+      .child(new Date().toISOString() + ".jpg")
+      .putFile(selectHumanModelUri)
+      .then((result) => {
+        console.log(result);
+        setModal((prev) => ({ ...prev, loading: false }));
+      })
+      .catch((error) => console.log(error));
+
+    // getApp().functions().useEmulator("192.168.100.95", 5001);
+    // getApp()
+    //   .functions()
+    //   .httpsCallable("helloWorld")({ ...assessmentObject, location: selectHumanModelUri })
+    //   .then((result) => {
+    //     if (result) {
+    //       console.log(result.data);
+    //       setModal((prev) => ({ ...prev, loading: false }));
+    //     }
+    //   })
+    //   .catch((error) => console.log(error));
+
+    // const { payload } = await dispatch(
+    //   generativeHumanModel({ ...assessmentObject, location: selectHumanModelUri } as IGenerativeHumanModel)
+    // );
+    // setModal((prev) => ({ ...prev, loading: false }));
+    // if (payload) {
+    //   return nav.navigate("PatientModelResponse", { data: payload.data });
+    // }
   };
   return (
     <>
@@ -53,6 +77,7 @@ export default function PromptModal({ visible }: { visible: boolean }) {
             autoPlay
             style={{
               width: 200,
+              height: 200,
             }}
             source={require("../../../assets/lottiefiles/68W5RbKLMa.json")}
           />

@@ -22,9 +22,6 @@ import { useAppDispatch } from "../hooks/useTypedSelector";
 import { isAuthenticated } from "../store/auth/loginSlice";
 import { NavigationProp, ParamListBase, useNavigation } from "@react-navigation/native";
 import { default as PatientModelResponse } from "../screens/patient/humanModel/ModelResponse";
-import "@react-native-firebase/database";
-import "@react-native-firebase/functions";
-import "@react-native-firebase/auth";
 
 const Stack = createNativeStackNavigator();
 

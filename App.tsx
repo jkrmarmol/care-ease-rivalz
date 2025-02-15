@@ -5,6 +5,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
+import "@react-native-firebase/database";
+import "@react-native-firebase/functions";
+import "@react-native-firebase/auth";
+import "@react-native-firebase/storage";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

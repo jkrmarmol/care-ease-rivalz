@@ -1,0 +1,22 @@
+{
+  "emulators": {
+    "functions": {
+      "host": "192.168.100.95",
+      "port": 5001
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log", "*.local"],
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint", "npm --prefix \"$RESOURCE_DIR\" run build"]
+    }
+  ],
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "react-native": {
+    "android_bypass_emulator_url_remap": true
+  }
+}
