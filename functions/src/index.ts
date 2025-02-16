@@ -10,8 +10,12 @@ initializeApp();
 const googleAIApiKey = defineString("GOOGLE_AI_API_KEY");
 const rivalZEnvironment = defineString("RIVALZ_API_KEY");
 
-export const helloWorld = onRequest(async (request, response) => {
+export const generateRivalZ = onRequest(async (request, response) => {
   try {
+    if (request.method !== "POST") {
+      response.status(405).json({ error: "Method Not Allowed" });
+      return;
+    }
     const genAI = new GoogleGenerativeAI(googleAIApiKey.value());
     const rivalZClient = new RivalzClient(rivalZEnvironment.value());
     const bodyData: TBodyData = request.body;
