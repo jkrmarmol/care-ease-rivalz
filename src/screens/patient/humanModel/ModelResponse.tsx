@@ -1,7 +1,6 @@
-import { View, ScrollView, useWindowDimensions } from "react-native";
+import { View, ScrollView, useWindowDimensions, Text } from "react-native";
 import React from "react";
 import { RouteProp, useRoute } from "@react-navigation/native";
-// import Markdown from "react-native-markdown-display";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ModelResponse() {
@@ -25,16 +24,14 @@ export default function ModelResponse() {
           style={{ height: "100%" }}
           showsVerticalScrollIndicator={false}
         >
-          {/* <Markdown
+          <Text
             style={{
-              body: {
-                fontFamily: "KalekoBook",
-                lineHeight: 28,
-              },
+              fontFamily: "KalekoBook",
+              lineHeight: 24,
             }}
           >
             {params.data}
-          </Markdown> */}
+          </Text>
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -444,7 +444,7 @@ export default function Login() {
               color: "#000000B3",
             }}
           >
-            CareEase by Kuma Technologes, Your simple, smart health management app.
+            CareEase by Kuma Technologies, Your simple, smart health management app.
           </Text>
         </View>
       </SafeAreaView>

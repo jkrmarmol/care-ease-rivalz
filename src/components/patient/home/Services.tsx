@@ -1,17 +1,8 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { View, Text, TouchableOpacity, useWindowDimensions } from "react-native";
 import React from "react";
 import HeartSVG from "../../reactSVG/HeartSVG";
 import DoctorSVG from "../../reactSVG/DoctorSVG";
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from "@react-navigation/native";
+import { NavigationProp, ParamListBase, useNavigation } from "@react-navigation/native";
 import QuestionSVG from "../../reactSVG/QuestionSVG";
 
 export default function Services() {
@@ -71,7 +62,7 @@ export default function Services() {
             3D Human Model
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => nav.navigate("PatientAppointment")}
           style={{
             width: 70,
@@ -99,6 +90,35 @@ export default function Services() {
             }}
           >
             Appointment
+          </Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={{
+            width: 70,
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#0000000D",
+              padding: 10,
+              borderRadius: 14,
+              width: 60,
+              height: 60,
+            }}
+          >
+            <QuestionSVG color="#000" size={40} />
+          </View>
+          <Text
+            style={{
+              fontFamily: "KalekoBold",
+              fontSize: 10,
+              textAlign: "center",
+              color: "#00000099",
+              marginTop: 6,
+            }}
+          >
+            Comming Soon!
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

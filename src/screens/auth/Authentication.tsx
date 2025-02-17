@@ -152,7 +152,7 @@ export default function Authentication() {
             opacity: 0.7,
           }}
         >
-          CareEase by Kuma Technologes, Your simple, smart health management app.
+          CareEase by Kuma Technologies, Your simple, smart health management app.
         </Text>
       </SafeAreaView>
     </View>

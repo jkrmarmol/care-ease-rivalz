@@ -14,6 +14,7 @@ import CustomModal from "../../modal/CustomModal";
 import LottieView from "lottie-react-native";
 import { NavigationProp, ParamListBase, useNavigation } from "@react-navigation/native";
 import { getApp } from "@react-native-firebase/app";
+import { usePostGenerateRagMutation } from "../../../store/firebaseApiSlice";
 
 export default function PromptModal({ visible }: { visible: boolean }) {
   const { width } = useWindowDimensions();
@@ -27,6 +28,7 @@ export default function PromptModal({ visible }: { visible: boolean }) {
     success: false,
     error: false,
   });
+  const [postGenerateRag] = usePostGenerateRagMutation();
   const onPressSubmitAssessmentInput = async () => {
     setModal((prev) => ({ ...prev, loading: true }));
     dispatch(showQuestionShow(false));
@@ -42,11 +44,22 @@ export default function PromptModal({ visible }: { visible: boolean }) {
       .ref("humanModel")
       .child(new Date().toISOString() + ".jpg")
       .putFile(selectHumanModelUri)
-      .then((result) => {
-        console.log(result);
+      .then(async (result) => {
+        const locationUrl = await getApp().storage().ref("humanModel").child(result.metadata.name).getDownloadURL();
+        const generateRag = await postGenerateRag({
+          ...assessmentObject,
+          location: locationUrl,
+        }).unwrap();
         setModal((prev) => ({ ...prev, loading: false }));
+        return nav.navigate("PatientModelResponse", { data: generateRag.data.answer ?? "" });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error(error);
+        setModal((prev) => ({ ...prev, error: true }));
+        setTimeout(() => {
+          setModal((prev) => ({ ...prev, error: false }));
+        }, 3000);
+      });
 
     // getApp().functions().useEmulator("192.168.100.95", 5001);
     // getApp()

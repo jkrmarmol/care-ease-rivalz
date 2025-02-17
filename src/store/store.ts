@@ -9,6 +9,7 @@ import doctorAppointmentReducer from "./doctor/appointmentSlice";
 import patientMessageReducer from "./patient/messageSlice";
 import doctorMessageReducer from "./doctor/messageSlice";
 import doctorSettingReducer from "./doctor/settingSlice";
+import { firebaseApiSlice } from "./firebaseApiSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,8 +23,10 @@ const store = configureStore({
     patientMessage: patientMessageReducer,
     doctorMessage: doctorMessageReducer,
     doctorSetting: doctorSettingReducer,
+    [firebaseApiSlice.reducerPath]: firebaseApiSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat([firebaseApiSlice.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

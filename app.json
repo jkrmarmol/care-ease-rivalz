@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CareEase",
+    "name": "Care Ease - RivalZ",
     "slug": "client",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -46,6 +46,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b5a97166-2b86-4f1a-8074-81a2ba81bd66"
+      }
     }
   }
 }
